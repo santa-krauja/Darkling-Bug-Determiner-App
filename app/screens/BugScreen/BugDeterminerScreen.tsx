@@ -1,10 +1,12 @@
 import { FC, useEffect } from "react"
-import { Text, Screen } from "../../components"
+import { Text, Screen, Card, ListView } from "../../components"
 import { DemoTabScreenProps } from "app/navigators/DemoNavigator"
-import { TextStyle, ViewStyle } from "react-native"
-import { spacing } from "app/theme"
+import { TextStyle, View, ViewStyle } from "react-native"
+import { colors, spacing } from "app/theme"
 import { useStores } from "../../models"
 import React from "react"
+import { observer } from "mobx-react-lite"
+import { BugDescription } from "app/models/BugDescription"
 
 
 
@@ -26,10 +28,18 @@ export const BugDeterminerScreen: FC<DemoTabScreenProps<"BugDeterminer">> =
     return (
       <Screen preset="scroll" contentContainerStyle={$container} safeAreaEdges={["top"]}>
         <Text tx="bugDeterminerScreen.test" style={$description} />
-        <Text style={$description} >{JSON.stringify(bugDescriptionStore.allDescriptions)}</Text>
+        {bugDescriptionStore.allDescriptionsForList.map(d => <TextyText key={d.genus} description={d} />)}
       </Screen>
     )
   }
+
+const TextyText = observer(function BugDescriptionCard({
+  description,
+}: {
+  description: BugDescription
+}) {
+  return <Text weight="bold">{JSON.stringify(description)}</Text>
+})
 
 const $container: ViewStyle = {
   paddingTop: spacing.lg + spacing.xl,
@@ -38,4 +48,23 @@ const $container: ViewStyle = {
 
 const $description: TextStyle = {
   marginBottom: spacing.lg,
+}
+
+const $item: ViewStyle = {
+  padding: spacing.md,
+  marginTop: spacing.md,
+  minHeight: 120,
+}
+
+const $metadata: TextStyle = {
+  color: colors.textDim,
+  marginTop: spacing.xs,
+  flexDirection: "row",
+}
+
+
+const $metadataText: TextStyle = {
+  color: colors.textDim,
+  marginEnd: spacing.md,
+  marginBottom: spacing.xs,
 }

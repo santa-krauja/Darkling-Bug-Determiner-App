@@ -21,5 +21,5 @@ export const BugDescriptionModel = types
 
 
 export interface BugDescription extends Instance<typeof BugDescriptionModel> { }
-export interface EpisodeSnapshotOut extends SnapshotOut<typeof BugDescriptionModel> { }
-export interface EpisodeSnapshotIn extends SnapshotIn<typeof BugDescriptionModel> { }
+export interface BugDescriptionOut extends SnapshotOut<typeof BugDescriptionModel> { }
+export interface BugDescriptionIn extends SnapshotIn<typeof BugDescriptionModel> { }

@@ -3,9 +3,9 @@ import { mapSimpleDescriptionsToFullDescriptions } from "./bugDescriptionMapper"
 
 test("maps correctly with correct data", () => {
     const returnData = mapSimpleDescriptionsToFullDescriptions(initialData)
-    const expectedMap = new Map<string, BugDescription>()
-    expectedMap.set("Lagria", expectedData as BugDescription)
-    expect(returnData).toEqual(expectedMap)
+    const expected: BugDescription[] = []
+    expected.push(expectedData as BugDescription)
+    expect(returnData).toEqual(expected)
 })
 
 test("Does not map incorrect data", () => {
@@ -18,9 +18,9 @@ test("Does not map incorrect data", () => {
     }
     initialData.push(incorrectData)
     const returnData = mapSimpleDescriptionsToFullDescriptions(initialData)
-    const expectedMap = new Map<string, BugDescription>()
-    expectedMap.set("Lagria", expectedData as BugDescription)
-    expect(returnData).toEqual(expectedMap)
+    const expected: BugDescription[] = []
+    expected.push(expectedData as BugDescription)
+    expect(returnData).toEqual(expected)
 })
 
 const initialData = [

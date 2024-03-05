@@ -1,4 +1,4 @@
-import { BodyPartDescritpion, BugDescription } from "../BugDescription"
+import { BodyPartDescritpion, BugDescriptionIn } from "../BugDescription"
 import { SimpleDescription } from "../BugDescriptionStore"
 
 interface TmpDescription {
@@ -12,11 +12,11 @@ interface TmpDescription {
 
 const allowedBodyParts: string[] = ['head', 'leg', 'tentacles', 'front_wings', 'fore_chest']
 
-export const mapSimpleDescriptionsToFullDescriptions = (descriptions: SimpleDescription[]): Map<string, BugDescription> => {
+export const mapSimpleDescriptionsToFullDescriptions = (descriptionsIn: SimpleDescription[]): BugDescriptionIn[] => {
     const descriptionMap = new Map<string, TmpDescription>
-    descriptions.forEach(d => {
+    descriptionsIn.forEach(d => {
         const bodyPart: string = d.body_part
-        if(!allowedBodyParts.includes(bodyPart)) {
+        if (!allowedBodyParts.includes(bodyPart)) {
             console.error?.(`Error in initial data, unexpected body part ${bodyPart}: ${JSON.stringify(d)}`, [])
             return
         }
@@ -37,6 +37,15 @@ export const mapSimpleDescriptionsToFullDescriptions = (descriptions: SimpleDesc
             descriptionMap.set(d.genus, obj)
         }
     })
-    descriptionMap.forEach( (k,v) => console.log(k + ' : ' + v))
-    return new Map<string, BugDescription>(descriptionMap as Map<string, BugDescription>)
+
+    return [...descriptionMap.values()].map(item => mapData(item))
+}
+
+const mapData = (tmpData: TmpDescription): BugDescriptionIn => {
+
+    const { genus, head, leg, tentacles, front_wings, fore_chest } = tmpData
+
+    if (!head || !leg || !tentacles || !front_wings || !fore_chest)
+        throw new Error(`Thre are missing elements in descritption for ${genus}!`)
+    return { genus, head, leg, tentacles, front_wings, fore_chest }
 }

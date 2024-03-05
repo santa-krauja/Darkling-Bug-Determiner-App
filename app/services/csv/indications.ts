@@ -1,0 +1,11 @@
+export const csvData = `genus,body_part,indication_text,indication_code,picture_name
+Lagria,head,Tips nr 1,type-1,type-1
+Lagria,leg,Tips nr. 34 ar matiņiem,type-34,type-34
+Lagria,tentacles,Vālīšveida,cob-shaped,cob-shaped
+Lagria,front_wings,Apaļi,round,round
+Lagria,fore_chest,Tips 1,type-1,type-1
+Blaps,head,Tips nr 2,type-2,type-2
+Blaps,leg,Tips nr. 56 ar matiņiem,type-56,type-56
+Blaps,tentacles,Nūjiņveida,rod-shaped,rod-shaped
+Blaps,front_wings,Ovāli,oval,oval
+Blaps,fore_chest,Tips 1,type-1,type-1`

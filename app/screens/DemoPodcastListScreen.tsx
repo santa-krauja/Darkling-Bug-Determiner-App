@@ -77,7 +77,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
       >
         <ListView<Episode>
           contentContainerStyle={$listContentContainer}
-          data={episodeStore.episodesForList.slice()}
+          data={episodeStore.episodesForList}
           extraData={episodeStore.favorites.length + episodeStore.episodes.length}
           refreshing={refreshing}
           estimatedItemSize={177}
