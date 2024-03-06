@@ -1,13 +1,13 @@
-import { BodyPartDescritpion, BugDescriptionIn } from "../BugDescription"
+import { BodyPartDescription, BugDescriptionIn } from "../BugDescription"
 import { SimpleDescription } from "../BugDescriptionStore"
 
 interface TmpDescription {
     genus: string,
-    head?: BodyPartDescritpion,
-    leg?: BodyPartDescritpion,
-    tentacles?: BodyPartDescritpion,
-    front_wings?: BodyPartDescritpion,
-    fore_chest?: BodyPartDescritpion,
+    head?: BodyPartDescription,
+    leg?: BodyPartDescription,
+    tentacles?: BodyPartDescription,
+    front_wings?: BodyPartDescription,
+    fore_chest?: BodyPartDescription,
 }
 
 const allowedBodyParts: string[] = ['head', 'leg', 'tentacles', 'front_wings', 'fore_chest']
