@@ -6,7 +6,16 @@ const en = {
     logOut: "Log Out",
   },
   bugDeterminerScreen: {
-      test: "test"
+    test: "test",
+    choose_this: "This matches",
+    title: "Bug determiner",
+  },
+  bodyPart: {
+    leg: "leg",
+    tentacles: "tentaceles",
+    head: "head",
+    front_wings: "front wings",
+    fore_chest: "fore chest"
   },
   welcomeScreen: {
     postscript:
@@ -51,7 +60,7 @@ const en = {
     podcastListTab: "Podcast",
   },
   navigator: {
-      bugDeterminerTab: "Bug Determiner"
+    bugDeterminerTab: "Bug Determiner",
   },
   demoCommunityScreen: {
     title: "Connect with the community",

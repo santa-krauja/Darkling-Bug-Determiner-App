@@ -1,14 +1,11 @@
 import Papa from 'papaparse'
-import { csvData } from './indications'
 
 export class CsvReader {
-    constructor() {
-    }
 
-    async readCsvText<T>(): Promise<T[]> {
+    async readCsvText<T>(data: string): Promise<T[]> {
         try {
             return new Promise(resolve => {
-                Papa.parse<T>(csvData, {
+                Papa.parse<T>(data, {
                     header: true,
                     complete: results => {
                         console.log('Complete', results.data.length, 'records.')

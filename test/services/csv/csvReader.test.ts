@@ -1,8 +1,9 @@
-import { csvReader } from "../../../app/services/csv/csvReader"
+import { csvReader } from "../../../app/services/csv"
+import { csvTestData } from "./fixtures"
 
 test("Reads file", async () => {
 
-   const data = await csvReader.readCsvText<JSON>()
+   const data = await csvReader.readCsvText<JSON>(csvTestData)
    console.log(data)
    expect(data.length).toEqual(10)
    expect(data).toEqual(expect.arrayContaining([expected]));

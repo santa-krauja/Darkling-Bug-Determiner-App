@@ -80,7 +80,7 @@ export function DemoNavigator() {
         }}
       />
 
-<Tab.Screen
+      <Tab.Screen
         name="BugDeterminer"
         component={BugDeterminerScreen}
         options={{

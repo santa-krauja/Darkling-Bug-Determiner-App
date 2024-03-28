@@ -1,4 +1,4 @@
-import { BodyPartDescription, BugDescriptionIn } from "../BugDescription"
+import { BodyPartDescription, BugDescriptionIn, BugDescriptionModel } from "../BugDescription"
 import { SimpleDescription } from "../BugDescriptionStore"
 
 interface TmpDescription {
@@ -20,7 +20,7 @@ export const mapSimpleDescriptionsToFullDescriptions = (descriptionsIn: SimpleDe
             console.error?.(`Error in initial data, unexpected body part ${bodyPart}: ${JSON.stringify(d)}`, [])
             return
         }
-        let existingObject = descriptionMap.get(d.genus)
+        const existingObject = descriptionMap.get(d.genus)
         const description = {
             indication_text: d.indication_text,
             indication_code: d.indication_code,
@@ -43,9 +43,12 @@ export const mapSimpleDescriptionsToFullDescriptions = (descriptionsIn: SimpleDe
 
 const mapData = (tmpData: TmpDescription): BugDescriptionIn => {
 
+    // eslint-disable-next-line camelcase
     const { genus, head, leg, tentacles, front_wings, fore_chest } = tmpData
 
+    // eslint-disable-next-line camelcase
     if (!head || !leg || !tentacles || !front_wings || !fore_chest)
         throw new Error(`Thre are missing elements in descritption for ${genus}!`)
-    return { genus, head, leg, tentacles, front_wings, fore_chest }
+    // eslint-disable-next-line camelcase
+    return BugDescriptionModel.create({ genus, head, leg, tentacles, front_wings, fore_chest })
 }

@@ -1,46 +1,46 @@
-import BugBodyPart from "../../../app/services/determiner/BugBodyPart"
+import { BugBodyPart } from "../../../app/services/determiner/BugBodyPart"
 import { bugDescriptions } from "./fixtures"
 import { filterBodyPartDescriptions, filterBugDescriptions } from "../../../app/services/determiner"
+import { BodyPartDescription, BugDescription } from "../../../app/models/BugDescription"
 
-describe('filterBugDescriptions', () => {
+describe("filterBugDescriptions", () => {
 
-  it('should filter bug descriptions based on body part and indication code', () => {
-    const filteredLegBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.LEG, 'LEG_CODE')
+  it("should filter bug descriptions based on body part and indication code", () => {
+    const filteredLegBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.LEG, "LEG_CODE")
     expect(filteredLegBugs.length).toBe(1)
-    expect(filteredLegBugs[0].genus).toBe('Insecta')
+    expect(filteredLegBugs[0].genus).toBe("Insecta")
 
-    const filteredHeadBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.HEAD, 'HEAD_CODE')
+    const filteredHeadBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.HEAD, "HEAD_CODE")
     expect(filteredHeadBugs.length).toBe(1)
-    expect(filteredHeadBugs[0].genus).toBe('Insecta')
+    expect(filteredHeadBugs[0].genus).toBe("Insecta")
 
-    const filteredWingsBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.FRONT_WINGS, 'WINGS_CODE')
+    const filteredWingsBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.FRONT_WINGS, "WINGS_CODE")
     expect(filteredWingsBugs.length).toBe(1)
-    expect(filteredWingsBugs[0].genus).toBe('Insecta')
+    expect(filteredWingsBugs[0].genus).toBe("Insecta")
 
-    const filteredTentaclesBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.TENTACLES, 'TENTACLES_CODE')
+    const filteredTentaclesBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.TENTACLES, "TENTACLES_CODE")
     expect(filteredTentaclesBugs.length).toBe(1)
-    expect(filteredTentaclesBugs[0].genus).toBe('Insecta')
+    expect(filteredTentaclesBugs[0].genus).toBe("Insecta")
 
-    const filteredChestBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.FORE_CHEST, 'CHEST_CODE')
+    const filteredChestBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.FORE_CHEST, "CHEST_CODE")
     expect(filteredChestBugs.length).toBe(1)
-    expect(filteredChestBugs[0].genus).toBe('Insecta')
+    expect(filteredChestBugs[0].genus).toBe("Insecta")
   })
 
-  it('should return 2 instances if bugs match body part code', () => {
-    const additional = { ...bugDescriptions[0], genus: 'Lagria' }
+  it("should return 2 instances if bugs match body part code", () => {
+    const additional = { ...bugDescriptions[0], genus: "Lagria" }
     bugDescriptions.push(additional)
-    const filteredBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.LEG, 'LEG_CODE')
+    const filteredBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.LEG, "LEG_CODE")
     expect(filteredBugs.length).toBe(2)
-    expect(filteredBugs[0].genus).toBe('Insecta')
-    expect(filteredBugs[1].genus).toBe('Lagria')
+    expect(filteredBugs[0].genus).toBe("Insecta")
+    expect(filteredBugs[1].genus).toBe("Lagria")
   })
 
-  it('should return an empty array if no matches are found', () => {
-    const filteredBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.LEG, 'INVALID_CODE')
+  it("should return an empty array if no matches are found", () => {
+    const filteredBugs = filterBugDescriptions(bugDescriptions, BugBodyPart.LEG, "INVALID_CODE")
     expect(filteredBugs.length).toBe(0)
   })
 })
-
 
 describe("filterBodyPartDescriptions", () => {
 
@@ -67,10 +67,18 @@ describe("filterBodyPartDescriptions", () => {
     expect(filteredBugs.length).toBe(0)
   })
 
-  it("should return one body part description if 2 bugs matches", () => {
-    const additional = { ...bugDescriptions[0] }
-    bugDescriptions.push(additional)
-    const filteredBugs = filterBodyPartDescriptions(bugDescriptions, BugBodyPart.LEG)
+  it("should return 1 body part description if 2 bugs matches, when it`s not the same object reference", () => {
+    const additional: BugDescription[] = []
+    additional.push(...bugDescriptions)
+    const additionalBug = {
+      ...bugDescriptions[0], genus: "test", leg: {
+        indication_text: "Six legs",
+        indication_code: "LEG_CODE",
+        picture_name: "leg_picture.png",
+      },
+    } as any as BugDescription
+    additional.push(additionalBug)
+    const filteredBugs = filterBodyPartDescriptions(additional, BugBodyPart.LEG)
     expect(filteredBugs.length).toBe(1)
     expect(filteredBugs[0].indication_code).toBe("LEG_CODE")
   })
@@ -81,7 +89,7 @@ describe("filterBodyPartDescriptions", () => {
         indication_text: "Six legs",
         indication_code: "LEG_CODE_1",
         picture_name: "leg_picture.png",
-      },
+      } as any as BodyPartDescription,
     }
     bugDescriptions.push(additional)
     const filteredBugs = filterBodyPartDescriptions(bugDescriptions, BugBodyPart.LEG)
